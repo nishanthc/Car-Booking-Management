@@ -10,5 +10,4 @@ def home():
     return render_template('home.html', title='Hello!')
 
 
-if __name__ == '__main__':
-    app.run()
+

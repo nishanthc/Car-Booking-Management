@@ -16,3 +16,6 @@ csrf = CSRFProtect(app)
 app.config['SECRET_KEY'] = 'fsdfsdfdsf'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://///Users/Nish/Development/Tutor_Booking_Management/test.db'
+
+if __name__ == '__main__':
+    app.run()
