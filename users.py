@@ -34,7 +34,7 @@ def login():
         login_data = User(username=form.username.data,
                           password=form.password.data)
         user = User.query.filter_by(username=login_data.username.lower()).first()
-        print(user)
+
         if user:
             if user.password == login_data.password.secret:
                 login_user(user)

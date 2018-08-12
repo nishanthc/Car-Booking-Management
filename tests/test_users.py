@@ -4,6 +4,7 @@ from init import app
 from models import db, User
 from flask import url_for
 
+
 TEST_DB = 'test2.db'
 
 class UsersTests(unittest.TestCase):
@@ -42,7 +43,7 @@ class UsersTests(unittest.TestCase):
         assert res.status_code == 200
 
 
-    def test_user_registration(self):
+    def test_user_registration_login(self):
         client = app.test_client()
         registration_data = {'username': 'test',
                 'email': 'test@test.com',
@@ -63,6 +64,23 @@ class UsersTests(unittest.TestCase):
 
         # Assert that the password recieved the same hash
         self.assertTrue(user.password == registration_data['password'])
+
+        client = app.test_client()
+        login_data = {'username': registration_data['username'],
+                'password': registration_data['password']}
+
+        res = client.post('/login',
+                          data=login_data)
+        # Assert that the user was redirected to the home
+        assert res.status_code == 302
+
+
+        with client.session_transaction() as sess:
+            user_id = sess['user_id']
+
+        # Assert that a session has been created for the user
+        assert user_id == "1"
+
 
 
 
