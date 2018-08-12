@@ -5,7 +5,7 @@ from models import db
 
 TEST_DB = 'test2.db'
 
-class CoreTests(unittest.TestCase):
+class UsersTests(unittest.TestCase):
 
     ############################
     #### setup and teardown ####
@@ -30,8 +30,12 @@ class CoreTests(unittest.TestCase):
     #### tests ####
     ###############
 
-    def test_home_page(self):
-        response = self.app.get('/', follow_redirects=True)
+    def test_registration_page(self):
+        response = self.app.get('/register', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_login_page(self):
+        response = self.app.get('/login', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
 
