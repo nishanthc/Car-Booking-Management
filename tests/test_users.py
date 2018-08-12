@@ -1,7 +1,8 @@
 import os
 import unittest
 from init import app
-from models import db
+from models import db, User
+from flask import url_for
 
 TEST_DB = 'test2.db'
 
@@ -31,12 +32,42 @@ class UsersTests(unittest.TestCase):
     ###############
 
     def test_registration_page(self):
-        response = self.app.get('/register', follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
+        client = app.test_client()
+        res = client.get('/register')
+        assert res.status_code == 200
 
     def test_login_page(self):
-        response = self.app.get('/login', follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
+        client = app.test_client()
+        res = client.get('/login')
+        assert res.status_code == 200
+
+
+    def test_user_registration(self):
+        client = app.test_client()
+        registration_data = {'username': 'test',
+                'email': 'test@test.com',
+                'mobile': '07910244279',
+                'password': 'password1',
+                'confirm_password': 'password1'}
+        res = client.post('/register',
+                          data=registration_data)
+        # Assert that the user was redirected to the login page
+        assert res.status_code == 302
+
+        user = User.query.filter_by(username=registration_data['username'],
+                                    email=registration_data['email'],
+                                    mobile=str(0)+registration_data['mobile']).first()
+
+        # Assert that the user was found
+        self.assertTrue(user)
+
+        # Assert that the password recieved the same hash
+        self.assertTrue(user.password == registration_data['password'])
+
+
+
+
+
 
 
 if __name__ == "__main__":

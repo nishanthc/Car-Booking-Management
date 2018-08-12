@@ -20,7 +20,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Thanks for registering')
-        return redirect(url_for('login'))
+        return redirect(url_for('users.login'))
 
     return render_template('register.html', title='Register', form=form)
 
@@ -28,12 +28,13 @@ def register():
 @users.route('/login', methods=('GET', 'POST'))
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('core.home'))
     form = LoginForm()
     if form.validate_on_submit():
         login_data = User(username=form.username.data,
                           password=form.password.data)
         user = User.query.filter_by(username=login_data.username.lower()).first()
+        print(user)
         if user:
             if user.password == login_data.password.secret:
                 login_user(user)
