@@ -8,4 +8,3 @@ flask
 wtforms
 sqlalchemy
 alembic
-pytest

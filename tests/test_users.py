@@ -82,11 +82,5 @@ class UsersTests(unittest.TestCase):
         assert user_id == "1"
 
 
-
-
-
-
-
-
 if __name__ == "__main__":
     unittest.main()
