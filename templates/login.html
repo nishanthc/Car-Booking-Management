@@ -5,6 +5,12 @@
     <div class="col-lg-12 text-center">
       <h1 class="mt-5">Login</h1>
       <p class="lead">Something witty</p>
+      {% for message in get_flashed_messages() %}
+          <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+          </div>
+      {% endfor %}
         {% from "helpers/_form_helper.html" import render_field %}
     <form method="POST" action="/login">
          <dl>

@@ -39,6 +39,10 @@ def login():
             if user.password == login_data.password.secret:
                 login_user(user)
                 return redirect(url_for('home'))
+            else:
+                flash('Invalid login')
+        else:
+            flash('Invalid login')
 
 
 
