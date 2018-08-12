@@ -4,9 +4,9 @@ from flask_login import UserMixin
 from init import app
 from init import login_manager
 from flask_migrate import Migrate
-
-db = SQLAlchemy(app)
 import datetime
+db = SQLAlchemy(app)
+
 
 migrate = Migrate(app, db)
 
@@ -51,7 +51,23 @@ class Admin(UserMixin, db.Model):
     mobile = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<Admin %r>' % self.username
+
+
+class Level(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    level = db.Column(db.String(80), unique=True, nullable=False)
+    price = db.Column(db.Integer, nullable=True)
+
+    def __repr__(self):
+        return '<Level %r>' % self.level
+
+class Subject(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+
+    def __repr__(self):
+        return '<Subject %r>' % self.name
 
 
 @login_manager.user_loader
