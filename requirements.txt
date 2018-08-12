@@ -1,0 +1,6 @@
+flask_sqlalchemy
+Flask-WTF
+WTForms-Alchemy
+passlib
+flask-login
+flask-migrate

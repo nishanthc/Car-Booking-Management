@@ -1,0 +1,10 @@
+venv/
+.idea/
+test.db
+*.pyc
+
+*.xml
+
+*.iml
+
+*.meta
