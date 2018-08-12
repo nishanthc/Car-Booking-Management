@@ -6,6 +6,11 @@ app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+from core import core
+from users import users
+app.register_blueprint(core)
+app.register_blueprint(users)
 csrf = CSRFProtect(app)
 
 app.config['SECRET_KEY'] = 'fsdfsdfdsf'

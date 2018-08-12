@@ -1,15 +1,17 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy_utils import PasswordType,EmailType
+from sqlalchemy_utils import PasswordType, EmailType
 from flask_login import UserMixin
 from init import app
 from init import login_manager
 from flask_migrate import Migrate
+
 db = SQLAlchemy(app)
 import datetime
 
 migrate = Migrate(app, db)
 
-class User(UserMixin,db.Model):
+
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     first_name = db.Column(db.String(80), nullable=True)
@@ -26,10 +28,12 @@ class User(UserMixin,db.Model):
     ))
     email = db.Column(EmailType, unique=True, nullable=False)
     mobile = db.Column(db.Integer, nullable=True)
+
     def __repr__(self):
         return '<User %r>' % self.username
 
-class Admin(UserMixin,db.Model):
+
+class Admin(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     first_name = db.Column(db.String(80), nullable=True)
@@ -45,8 +49,10 @@ class Admin(UserMixin,db.Model):
     ))
     email = db.Column(EmailType, unique=True, nullable=False)
     mobile = db.Column(db.Integer, nullable=True)
+
     def __repr__(self):
         return '<User %r>' % self.username
+
 
 @login_manager.user_loader
 def load_user(user_id):
