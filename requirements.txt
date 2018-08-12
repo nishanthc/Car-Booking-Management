@@ -4,3 +4,7 @@ WTForms-Alchemy
 passlib
 flask-login
 flask-migrate
+flask
+wtforms
+sqlalchemy
+alembic
