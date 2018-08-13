@@ -9,3 +9,7 @@ venv/
 *.meta
 
 test_database.db
+
+test.db
+
+test2.db

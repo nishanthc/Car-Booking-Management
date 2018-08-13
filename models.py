@@ -57,7 +57,7 @@ class Admin(UserMixin, db.Model):
 
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level = db.Column(db.String(80), unique=True, nullable=False)
+    name = db.Column(db.String(80), unique=True, nullable=False)
     price = db.Column(db.Integer, nullable=True)
     lessons = db.relationship('Lesson', backref='level')
     def __repr__(self):
@@ -79,7 +79,7 @@ class Lesson(db.Model):
     paid = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return '<Lesson %r>' % self.name
+        return '<Lesson %r>' % self.id
 
 @login_manager.user_loader
 def load_user(user_id):
