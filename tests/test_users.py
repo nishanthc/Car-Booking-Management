@@ -5,7 +5,7 @@ from models import db, User
 from flask import url_for
 
 
-TEST_DB = 'test2.db'
+TEST_DB = 'test_database.db'
 
 class UsersTests(unittest.TestCase):
 

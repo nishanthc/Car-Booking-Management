@@ -8,4 +8,4 @@ venv/
 
 *.meta
 
-test2.db
+test_database.db

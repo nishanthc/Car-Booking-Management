@@ -7,7 +7,7 @@ app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-db_file_name = "test.db"
+db_file_name = "tbs.db"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
                                                 os.path.join(app.root_path, db_file_name)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
