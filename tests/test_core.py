@@ -3,7 +3,7 @@ import unittest
 from init import app
 from models import db
 
-TEST_DB = 'test2.db'
+TEST_DB = 'test_database.db'
 
 class CoreTests(unittest.TestCase):
 
