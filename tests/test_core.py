@@ -1,4 +1,3 @@
-import os
 import unittest
 from init import app
 from models import db

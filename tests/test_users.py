@@ -1,8 +1,6 @@
-import os
 import unittest
 from init import app
 from models import db, User
-from flask import url_for
 
 
 class UsersTests(unittest.TestCase):
