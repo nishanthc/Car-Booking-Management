@@ -7,7 +7,7 @@
       <p class="lead">Register now to book lessons!</p>
 
 
-    {% from "helpers/_form_helper.html" import render_field %}
+    {% from "./helpers/_form_helper.html" import render_field %}
     <form method="POST" action="/register">
          <dl>
             {{ form.csrf_token }}

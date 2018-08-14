@@ -11,7 +11,7 @@
             {{ message }}
           </div>
       {% endfor %}
-        {% from "helpers/_form_helper.html" import render_field %}
+        {% from "./helpers/_form_helper.html" import render_field %}
     <form method="POST" action="/login">
          <dl>
             {{ form.csrf_token }}

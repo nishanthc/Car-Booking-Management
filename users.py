@@ -22,7 +22,7 @@ def register():
         flash('Thanks for registering')
         return redirect(url_for('users.login'))
 
-    return render_template('register.html', title='Register', form=form)
+    return render_template('user/register.html', title='Register', form=form)
 
 
 @users.route('/login', methods=('GET', 'POST'))
@@ -43,7 +43,7 @@ def login():
                 flash('Invalid login')
         else:
             flash('Invalid login')
-    return render_template('login.html', title='Login', form=form)
+    return render_template('user/login.html', title='Login', form=form)
 
 
 @users.route('/logout')
