@@ -11,7 +11,7 @@ admin = Blueprint('admin',__name__)
 def home():
     if current_user.admin:
         return render_template('admin/home.html', title='Admin')
-
+    return '', 403
 
 
 if __name__ == '__main__':

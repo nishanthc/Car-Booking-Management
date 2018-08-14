@@ -6,7 +6,7 @@ from init import app
 from init import login_manager
 from flask_migrate import Migrate
 import datetime
-db = SQLAlchemy(app)
+from init import db
 
 
 migrate = Migrate(app, db)
