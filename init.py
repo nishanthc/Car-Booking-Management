@@ -13,6 +13,7 @@ app.config['TEST_SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
                                                 os.path.join(app.root_path, test_db_file_name)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'fsdfsdfdsf'
+
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
