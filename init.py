@@ -17,9 +17,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'fsdfsdfdsf'
 
 from core import core
+from admin import admin
 from users import users
 app.register_blueprint(core)
 app.register_blueprint(users)
+app.register_blueprint(admin)
 csrf = CSRFProtect(app)
 
 if __name__ == '__main__':
