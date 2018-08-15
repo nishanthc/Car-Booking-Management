@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <div class="row">
+    <div class="col-lg-12 text-center">
+      <h1 class="mt-5">Your Profile</h1>
+      <p class="lead">Ensure your details are up to date!</p>
+
+
+    {% from "./helpers/_form_helper.html" import render_field %}
+    <form method="POST" action="/profile">
+         <dl>
+            {{ form.csrf_token }}
+            {{ render_field(form.mobile) }}
+            {{ render_field(form.email) }}
+            {{ render_field(form.first_name) }}
+            {{ render_field(form.last_name) }}
+            {{ render_field(form.email_notifications) }}
+            {{ render_field(form.text_notifications) }}
+        </dl>
+        <p><input type=submit value=Update>
+    </form>
+
+
+
+    </div>
+  </div>
+{% endblock %}

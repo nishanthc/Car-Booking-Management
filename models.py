@@ -17,8 +17,8 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     first_name = db.Column(db.String(80), nullable=True)
     last_name = db.Column(db.String(80), nullable=True)
-    email_notifcations = db.Column(db.Boolean, default=True)
-    text_notifcations = db.Column(db.Boolean, default=True)
+    email_notifications = db.Column(db.Boolean, default=True)
+    text_notifications = db.Column(db.Boolean, default=True)
     date_enrolled = db.Column(db.DateTime, default=datetime.datetime.now)
     password = db.Column(PasswordType(
         schemes=[

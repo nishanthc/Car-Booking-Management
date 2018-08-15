@@ -1,11 +1,16 @@
 from flask import Blueprint, render_template, redirect, flash, url_for, request
 from flask_login import current_user, login_user, logout_user
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, ProfileForm
 from init import app
 from models import db, User
 
 users = Blueprint('users',__name__)
 
+def is_profile_complete(current_user):
+    if current_user.profile_complete:
+        return True
+    else:
+        return False
 
 @users.route('/register', methods=('GET', 'POST'))
 def register():
@@ -44,6 +49,25 @@ def login():
         else:
             flash('Invalid login')
     return render_template('user/login.html', title='Login', form=form)
+
+@users.route('/profile', methods=('GET', 'POST'))
+def profile():
+    if current_user.is_authenticated == False:
+        return redirect(url_for('core.home'))
+    form = ProfileForm(obj=current_user)
+    if form.validate_on_submit():
+        user = User.query.filter_by(id=current_user.id).first()
+        user.first_name = form.first_name.data
+        user.last_name = form.last_name.data
+        user.email_notifications = form.email_notifications.data
+        user.text_notifications = form.text_notifications.data
+        user.profile_complete = True
+        db.session.commit()
+        flash('Your details have been updated')
+        return render_template('user/profile.html', title='Profile', form=form)
+    return render_template('user/profile.html', title='Profile', form=form)
+
+
 
 
 @users.route('/logout')
