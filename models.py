@@ -30,6 +30,7 @@ class User(UserMixin, db.Model):
     email = db.Column(EmailType, unique=True, nullable=False)
     mobile = db.Column(db.Integer, nullable=True)
     admin = db.Column(db.Boolean, default=False)
+    profile_complete = db.Column(db.Boolean, default=False)
     lessons = db.relationship('Lesson', backref='user')
     def __repr__(self):
         return '<User %r>' % self.username
