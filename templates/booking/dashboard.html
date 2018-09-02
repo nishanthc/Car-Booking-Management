@@ -13,16 +13,18 @@
                 <th>Registration</th>
                 <th>Start</th>
                 <th>End</th>
+                <th>Modify</th>
               </tr>
           </thead>
           <tbody>
           {% for booking in data["user_bookings"] %}
             <tr>
-                <td>Make</td>
-                <td>Model</td>
-                <td>Registration</td>
+                <td>{% print(booking.car.make) %}</td>
+                <td>{% print(booking.car.model) %}</td>
+                <td>{% print(booking.car.registration) %}</td>
                 <td>{% print(booking.start_time) %}</td>
                 <td>{% print(booking.end_time) %}</td>
+                <td><span class="glyphicon glyphicon-edit"></span></td>
             </tr>
 
           {% endfor %}
