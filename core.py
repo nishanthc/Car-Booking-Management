@@ -5,7 +5,7 @@ from init import app
 from models import db, User
 from user import *
 
-core = Blueprint('core',__name__)
+core = Blueprint('core_blueprint',__name__)
 @core.route('/')
 def home():
     if current_user.is_authenticated:

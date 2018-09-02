@@ -5,7 +5,7 @@ from init import app
 from models import db, User, Booking
 from user import *
 
-booking = Blueprint('booking',__name__)
+booking = Blueprint('booking_blueprint',__name__)
 
 def user_has_booking():
     user_bookings = Booking.query.filter_by(user_id=current_user.id).count()

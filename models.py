@@ -2,11 +2,13 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_utils import PasswordType, EmailType
 from sqlalchemy import ForeignKey
 from flask_login import UserMixin
-from init import app
-from init import login_manager
+from init import LoginManager
 from flask_migrate import Migrate
 import datetime
 from init import db
+from init import app
+from init import login_manager
+
 
 
 migrate = Migrate(app, db)
@@ -52,7 +54,6 @@ class Booking(db.Model):
     car_id = db.Column(db.Integer, db.ForeignKey('car.id'))
     start_time = db.Column(db.DateTime)
     end_time = db.Column(db.DateTime)
-
 
     def __repr__(self):
         return '<Lesson %r>' % self.id

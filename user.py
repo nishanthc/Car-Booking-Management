@@ -4,7 +4,7 @@ from forms import RegistrationForm, LoginForm, ProfileForm
 from init import app
 from models import db, User
 
-user = Blueprint('user',__name__)
+user = Blueprint('user_blueprint',__name__)
 
 def is_profile_complete(current_user):
     if current_user.profile_complete:
