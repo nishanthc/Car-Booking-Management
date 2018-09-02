@@ -23,8 +23,9 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 import user
 from models import Booking, User as UserModel, Car, db
-admin = Admin(app, name='Electric Care Hire', template_mode='bootstrap3',index_view=user.MyAdminIndexView())
+admin = Admin(app, name='Electric Care Hire', template_mode='bootstrap3')
 admin.add_view(user.MyModelView(UserModel, db.session))
+admin.add_view(user.MyModelView(Car, db.session))
 admin.add_view(ModelView(Booking, db.session))
 
 
