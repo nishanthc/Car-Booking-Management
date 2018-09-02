@@ -28,28 +28,36 @@ class User(UserMixin, db.Model):
         deprecated=['md5_crypt']
     ))
     email = db.Column(EmailType, unique=True, nullable=False)
-    mobile = db.Column(db.String(80), nullable=True)
+    mobile = db.Column(db.Integer, nullable=True)
     admin = db.Column(db.Boolean, default=False)
     profile_complete = db.Column(db.Boolean, default=False)
-    bookings = db.relationship('Booking', backref='user')
+    lessons = db.relationship('Lesson', backref='user')
     def __repr__(self):
         return '<User %r>' % self.username
 
 
-class Car(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    vin = db.Column(db.String(80), unique=True, nullable=False)
-    registration = db.Column(db.String(80), unique=True, nullable=False)
-    make = db.Column(db.String(80), unique=True, nullable=False)
-    model = db.Column(db.String(80), unique=True, nullable=False)
-    bookings = db.relationship('Booking', backref='car')
-    def __repr__(self):
-        return '<Subject %r>' % self.vin
 
-class Booking(db.Model):
+
+class Level(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    price = db.Column(db.Integer, nullable=True)
+    lessons = db.relationship('Lesson', backref='level')
+    def __repr__(self):
+        return '<Level %r>' % self.level
+
+class Subject(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    lessons = db.relationship('Lesson', backref='subject')
+    def __repr__(self):
+        return '<Subject %r>' % self.name
+
+class Lesson(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    car_id = db.Column(db.Integer, db.ForeignKey('car.id'))
+    level_id = db.Column(db.Integer, db.ForeignKey('level.id'))
+    subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'))
     dateTime = db.Column(db.DateTime)
     paid = db.Column(db.Boolean, default=False)
 
