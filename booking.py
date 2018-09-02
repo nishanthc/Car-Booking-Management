@@ -15,12 +15,18 @@ def user_has_booking():
     else:
         return False
 
+
+def get_user_bookings():
+    user_bookings = Booking.query.filter_by(user_id=current_user.id)
+
+    return user_bookings
+
 @booking.route('/bookings', methods=('GET', 'POST'))
 def bookings():
 
     if not current_user.is_authenticated:
         return redirect(url_for('core.home'))
-    context = {"user_has_booking":user_has_booking()}
+    context = {"user_has_booking":user_has_booking(),"user_bookings":get_user_bookings()}
     return render_template('booking/dashboard.html', title='Booking Dashboard',data=context)
 
 

@@ -1,11 +1,33 @@
 {% extends 'base.html' %}
 
 {% block container %}
-    <div class="row">
+    <div class="row" xmlns="http://www.w3.org/1999/html">
     <div class="col-lg-12 text-center">
       <h1 class="mt-5">Booking Dashboard</h1>
       {% if data["user_has_booking"] == True %}
-          Your bookings should display here in a table !
+          <table class="table">
+          <thead>
+              <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Registration</th>
+                <th>Start</th>
+                <th>End</th>
+              </tr>
+          </thead>
+          <tbody>
+          {% for booking in data["user_bookings"] %}
+            <tr>
+                <td>Make</td>
+                <td>Model</td>
+                <td>Registration</td>
+                <td>{% print(booking.start_time) %}</td>
+                <td>{% print(booking.end_time) %}</td>
+            </tr>
+
+          {% endfor %}
+          </tbody>
+          </table>
       {% else %}
           You currently do not have any bookings with us!<br><br>
           <a href="/bookings/new">Make a booking now !</a>
