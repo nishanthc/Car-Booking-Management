@@ -8,29 +8,38 @@ from user import *
 booking = Blueprint('booking',__name__)
 
 def user_has_booking():
-    user = User.query.filter_by(id=current_user.id).first()
-    user_bookings = Booking.query.filter_by(user_id=user.id).first()
-    if user_bookings:
+    user_bookings = Booking.query.filter_by(user_id=current_user.id).count()
+
+    if user_bookings > 0:
         return True
     else:
         return False
 
 @booking.route('/bookings', methods=('GET', 'POST'))
 def bookings():
-    print(user_has_booking())
+
     if not current_user.is_authenticated:
         return redirect(url_for('core.home'))
-    context = {"user_has_booking":user_has_booking}
+    context = {"user_has_booking":user_has_booking()}
     return render_template('booking/dashboard.html', title='Booking Dashboard',data=context)
 
 
 @booking.route('/bookings/new', methods=('GET', 'POST'))
 def new_booking():
-    print(user_has_booking())
     if not current_user.is_authenticated:
         return redirect(url_for('core.home'))
 
     form = BookingForm()
+    if form.validate_on_submit():
+        print (form.car_id.data)
+        booking = Booking(user_id=current_user.id,
+                    car_id=form.car_id.data,
+                    start_time=form.start_date_time.data,
+                    end_time=form.end_date_time.data)
+        db.session.add(booking)
+        db.session.commit()
+        flash('Thanks for making a booking')
+        return redirect(url_for('booking.bookings'))
     return render_template('booking/new.html', title='New Booking',form=form)
 
 
