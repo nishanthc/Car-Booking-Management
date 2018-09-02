@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, flash, url_for, request
 from flask_login import current_user, login_user, logout_user
-from forms import RegistrationForm, LoginForm, ProfileForm
+from forms import BookingForm
 from init import app
 from models import db, User, Booking
 from user import *
@@ -21,8 +21,17 @@ def bookings():
     if not current_user.is_authenticated:
         return redirect(url_for('core.home'))
     context = {"user_has_booking":user_has_booking}
-    return render_template('booking/dashboard.html', title='Bookings',data=context)
+    return render_template('booking/dashboard.html', title='Booking Dashboard',data=context)
 
+
+@booking.route('/bookings/new', methods=('GET', 'POST'))
+def new_booking():
+    print(user_has_booking())
+    if not current_user.is_authenticated:
+        return redirect(url_for('core.home'))
+
+    form = BookingForm()
+    return render_template('booking/new.html', title='New Booking',form=form)
 
 
 

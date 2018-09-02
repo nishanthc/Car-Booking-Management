@@ -50,8 +50,9 @@ class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     car_id = db.Column(db.Integer, db.ForeignKey('car.id'))
-    dateTime = db.Column(db.DateTime)
-    paid = db.Column(db.Boolean, default=False)
+    start_time = db.Column(db.DateTime)
+    end_time = db.Column(db.DateTime)
+
 
     def __repr__(self):
         return '<Lesson %r>' % self.id

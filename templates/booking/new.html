@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <div class="row">
+    <div class="col-lg-12 text-center">
+      <h1 class="mt-5">New Car Booking</h1>
+      <p class="lead"></p>
+
+
+    {% from "./helpers/_form_helper.html" import render_field %}
+    <form method="POST" action="/bookings/new">
+         <dl>
+            {{ form.csrf_token }}
+            {{ render_field(form.car_id) }}
+            {{ render_field(form.start_date_time) }}
+            {{ render_field(form.end_date_time) }}
+        </dl>
+        <p><input type=submit value=Book>
+    </form>
+
+
+
+    </div>
+  </div>
+{% endblock %}
