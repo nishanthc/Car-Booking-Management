@@ -5,11 +5,11 @@ from flask_login import UserMixin
 from init import LoginManager
 from flask_migrate import Migrate
 import datetime
-from init import db
+
 from init import app
 from init import login_manager
 
-
+db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
 

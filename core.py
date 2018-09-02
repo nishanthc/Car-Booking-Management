@@ -10,7 +10,7 @@ core = Blueprint('core_blueprint',__name__)
 def home():
     if current_user.is_authenticated:
         if is_profile_complete(current_user) == False:
-            return redirect(url_for('user.profile'))
+            return redirect(url_for('user_blueprint.profile'))
         else:
             return render_template('home.html', title='Home')
     else:

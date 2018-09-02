@@ -3,6 +3,9 @@ from flask_login import current_user, login_user, logout_user
 from forms import RegistrationForm, LoginForm, ProfileForm
 from init import app
 from models import db, User
+import flask_admin as admin
+from flask_admin import helpers, expose, AdminIndexView
+from flask_admin.contrib import sqla
 
 user = Blueprint('user_blueprint',__name__)
 
@@ -15,7 +18,7 @@ def is_profile_complete(current_user):
 @user.route('/register', methods=('GET', 'POST'))
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('core.home'))
+        return redirect(url_for('core_blueprint.home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
@@ -25,7 +28,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Thanks for registering')
-        return redirect(url_for('user.login'))
+        return redirect(url_for('user_blueprint.login'))
 
     return render_template('user/register.html', title='Register', form=form)
 
@@ -33,7 +36,7 @@ def register():
 @user.route('/login', methods=('GET', 'POST'))
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('core.home'))
+        return redirect(url_for('core_blueprint.home'))
     form = LoginForm()
     if form.validate_on_submit():
         login_data = User(username=form.username.data,
@@ -43,7 +46,7 @@ def login():
         if user:
             if user.password == login_data.password.secret:
                 login_user(user)
-                return redirect(url_for('core.home'))
+                return redirect(url_for('core_blueprint.home'))
             else:
                 flash('Invalid login')
         else:
@@ -53,7 +56,7 @@ def login():
 @user.route('/profile', methods=('GET', 'POST'))
 def profile():
     if current_user.is_authenticated == False:
-        return redirect(url_for('core.home'))
+        return redirect(url_for('core_blueprint.home'))
     form = ProfileForm(obj=current_user)
     if form.validate_on_submit():
         user = User.query.filter_by(id=current_user.id).first()
@@ -73,7 +76,21 @@ def profile():
 @user.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('core.home'))
+    return redirect(url_for('core_blueprint.home'))
+
+
+class MyModelView(sqla.ModelView):
+
+    def is_accessible(self):
+        return current_user.is_authenticated
+
+class MyAdminIndexView(AdminIndexView):
+
+    @expose('/admin')
+    def index(self):
+        if not login.current_user.is_authenticated:
+            return redirect(url_for('user_blueprint.login'))
+        return super(MyAdminIndexView, self).index()
 
 
 if __name__ == '__main__':
