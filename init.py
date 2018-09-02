@@ -24,9 +24,11 @@ db.create_all()
 from core import core
 from admin import admin
 from user import user
+from booking import booking
 app.register_blueprint(core)
 app.register_blueprint(user)
 app.register_blueprint(admin)
+app.register_blueprint(booking)
 csrf = CSRFProtect(app)
 
 if __name__ == '__main__':
