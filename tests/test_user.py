@@ -3,7 +3,7 @@ from init import app
 from models import db, User
 
 
-class UsersTests(unittest.TestCase):
+class UserTests(unittest.TestCase):
 
     ############################
     #### setup and teardown ####
@@ -27,7 +27,7 @@ class UsersTests(unittest.TestCase):
     global registration_data
     registration_data = {'username': 'test',
                          'email': 'test@test.com',
-                         'mobile': '07910244279',
+                         'mobile': '7910244279',
                          'password': 'password1',
                          'confirm_password': 'password1'}
 
@@ -41,8 +41,7 @@ class UsersTests(unittest.TestCase):
         assert res.status_code == 302
 
         user = User.query.filter_by(username=registration_data['username'],
-                                    email=registration_data['email'],
-                                    mobile=str(0)+registration_data['mobile']).first()
+                                    email=registration_data['email']).first()
 
         # Assert that the user was found
         self.assertTrue(user)

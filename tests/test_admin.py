@@ -40,10 +40,7 @@ class UsersTests(unittest.TestCase):
         # Assert that the user was redirected to the login page
         assert res.status_code == 302
 
-        admin = User.query.filter_by(username=registration_data['username'],
-                                    email=registration_data['email'],
-                                    mobile=str(0)+registration_data['mobile']).first()
-
+        admin = User.query.filter_by(username=registration_data['username']).first()
 
         # Assert that the user was found
         self.assertTrue(admin)
