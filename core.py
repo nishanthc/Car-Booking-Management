@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user
 from forms import RegistrationForm, LoginForm
 from init import app
 from models import db, User
-from users import *
+from user import *
 
 core = Blueprint('core',__name__)
 @core.route('/')

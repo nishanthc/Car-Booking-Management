@@ -23,9 +23,9 @@ login_manager.login_view = 'login'
 db.create_all()
 from core import core
 from admin import admin
-from users import users
+from user import user
 app.register_blueprint(core)
-app.register_blueprint(users)
+app.register_blueprint(user)
 app.register_blueprint(admin)
 csrf = CSRFProtect(app)
 

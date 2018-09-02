@@ -4,7 +4,7 @@ from forms import RegistrationForm, LoginForm, ProfileForm
 from init import app
 from models import db, User
 
-users = Blueprint('users',__name__)
+user = Blueprint('user',__name__)
 
 def is_profile_complete(current_user):
     if current_user.profile_complete:
@@ -12,7 +12,7 @@ def is_profile_complete(current_user):
     else:
         return False
 
-@users.route('/register', methods=('GET', 'POST'))
+@user.route('/register', methods=('GET', 'POST'))
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('core.home'))
@@ -30,7 +30,7 @@ def register():
     return render_template('user/register.html', title='Register', form=form)
 
 
-@users.route('/login', methods=('GET', 'POST'))
+@user.route('/login', methods=('GET', 'POST'))
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('core.home'))
@@ -50,7 +50,7 @@ def login():
             flash('Invalid login')
     return render_template('user/login.html', title='Login', form=form)
 
-@users.route('/profile', methods=('GET', 'POST'))
+@user.route('/profile', methods=('GET', 'POST'))
 def profile():
     if current_user.is_authenticated == False:
         return redirect(url_for('core.home'))
@@ -70,7 +70,7 @@ def profile():
 
 
 
-@users.route('/logout')
+@user.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('core.home'))
