@@ -4,6 +4,7 @@
     <div class="row" xmlns="http://www.w3.org/1999/html">
     <div class="col-lg-12 text-center">
       <h1 class="mt-5">Booking Dashboard</h1>
+      <a href="/bookings/new">Make a booking now !</a>
       {% if data["user_has_booking"] == True %}
           <table class="table">
           <thead>
@@ -30,6 +31,7 @@
           {% endfor %}
           </tbody>
           </table>
+
       {% else %}
           You currently do not have any bookings with us!<br><br>
           <a href="/bookings/new">Make a booking now !</a>
