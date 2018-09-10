@@ -2,12 +2,12 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_utils import PasswordType, EmailType
 from sqlalchemy import ForeignKey
 from flask_login import UserMixin
-from init import LoginManager
+from app import LoginManager
 from flask_migrate import Migrate
 import datetime
-
-from init import app
-from init import login_manager
+from datetime import timedelta
+from app import app
+from app import login_manager
 
 db = SQLAlchemy(app)
 
@@ -57,6 +57,27 @@ class Booking(db.Model):
 
     def __repr__(self):
         return '<Lesson %r>' % self.id
+    def is_car_avaiable(self):
+        within_another_bookings_timeslot = db.session.query(Booking).filter(Booking.car_id == self.car_id,
+            Booking.start_time <= self.start_time,Booking.end_time >= self.end_time).count()
+        self.start_time
+
+        booking_within_this_range = db.session.query(Booking).filter(Booking.car_id == self.car_id,
+            Booking.start_time >= self.start_time,Booking.end_time <= self.end_time).count()
+        self.start_time
+
+        starts_two_hours_before_end = db.session.query(Booking).filter(Booking.car_id == self.car_id,
+             Booking.end_time >= self.start_time - timedelta(hours=2),Booking.end_time <= self.start_time).count()
+        self.start_time
+        print(Booking.end_time)
+        print(self.start_time - timedelta(hours=2))
+
+        print("In Range:",within_another_bookings_timeslot)
+        print("Out of Range:",booking_within_this_range )
+        print("starts two hours before an end:", starts_two_hours_before_end)
+
+
+
 
 @login_manager.user_loader
 def load_user(user_id):
