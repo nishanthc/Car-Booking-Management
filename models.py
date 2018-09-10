@@ -74,9 +74,18 @@ class Booking(db.Model):
              Booking.end_time >= self.start_time - timedelta(hours=2),Booking.end_time <= self.start_time).count()
 
         print("In Range:", user_same_time_slot)
-        print("In Range:",within_another_bookings_timeslot)
-        print("Out of Range:",booking_within_this_range )
-        print("starts two hours before an end:", starts_two_hours_before_end_start)
+
+        if user_same_time_slot > 0:
+            return {"result": False,"reason":" You already have a car already booked for these times."}
+        if booking_within_this_range > 0:
+            return {"result": False, "reason": " This car has already been booked between these times"}
+        if within_another_bookings_timeslot > 0:
+            return {"result": False, "reason": "This car has already been booked between these times"}
+        if starts_two_hours_before_end_start > 0:
+            return {"result": False, "reason": "Atleast 2 hours needed between bookings"}
+        return {"result": True, "reason": ""}
+
+
 
 
 

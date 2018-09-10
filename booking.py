@@ -42,7 +42,10 @@ def new_booking():
                     car_id=form.car_id.data,
                     start_time=form.start_date_time.data,
                     end_time=form.end_date_time.data)
-        booking.is_car_avaiable()
+        booking_validation = booking.is_car_avaiable()
+        if booking_validation['result'] == False:
+            flash(booking_validation['reason'])
+            return render_template('booking/new.html', title='New Booking', form=form)
         db.session.add(booking)
         db.session.commit()
         flash('Thanks for making a booking')
