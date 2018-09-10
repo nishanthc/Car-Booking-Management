@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, flash, url_for, request
 from flask_login import current_user, login_user, logout_user
 from forms import RegistrationForm, LoginForm, ProfileForm
-from init import app
+from app import app
 from models import db, User
 import flask_admin as admin
 from flask_admin import helpers, expose, AdminIndexView
@@ -83,14 +83,6 @@ class MyModelView(sqla.ModelView):
 
     def is_accessible(self):
         return current_user.is_authenticated
-
-class MyAdminIndexView(AdminIndexView):
-
-    @expose('/admin')
-    def index(self):
-        if not login.current_user.is_authenticated:
-            return redirect(url_for('user_blueprint.login'))
-        return super(MyAdminIndexView, self).index()
 
 
 if __name__ == '__main__':
