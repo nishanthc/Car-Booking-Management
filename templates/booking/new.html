@@ -13,6 +13,7 @@
           </div>
       {% endfor %}
     {% from "./helpers/_form_helper.html" import render_field %}
+    <p> Date/Time must be entered in this format : 2018-08-08 07:00:00 </p>
     <form method="POST" action="/bookings/new">
          <dl>
             {{ form.csrf_token }}
