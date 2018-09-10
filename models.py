@@ -73,8 +73,10 @@ class Booking(db.Model):
         starts_two_hours_before_end_start = db.session.query(Booking).filter(Booking.car_id == self.car_id,
              Booking.end_time >= self.start_time - timedelta(hours=2),Booking.end_time <= self.start_time).count()
 
-        print("In Range:", user_same_time_slot)
+        user_booking_count = db.session.query(Booking).filter(Booking.user_id == self.user_id).count()
 
+        if user_booking_count > 5:
+            return {"result": False,"reason":"You can not have more than 5 bookings"}
         if user_same_time_slot > 0:
             return {"result": False,"reason":" You already have a car already booked for these times."}
         if booking_within_this_range > 0:
