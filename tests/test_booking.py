@@ -1,5 +1,5 @@
 import unittest
-from init import app
+from app import app
 from models import db, User
 import tests.test_user as test_user
 class BookingTests(unittest.TestCase):
