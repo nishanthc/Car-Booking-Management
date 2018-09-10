@@ -8,10 +8,10 @@ A flask based car hire management system.
   - Stores registration number, vin and model of multiple vehicles.
   - Allows registered users to place bookings on cars.
   - Administration menu to perform CRUD operations
-  - Booking restrictions
-            - 2 Hours between bookings
-            - No overlapping bookings
-            - User may only have 5 bookings
+  - Booking restrictions<br>
+            - 2 Hours between bookings<br>
+            - No overlapping bookings<br>
+            - User may only have 5 bookings<br>
   - Bootstrap
 
 # Installation
