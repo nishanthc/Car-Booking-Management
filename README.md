@@ -21,7 +21,7 @@ A flask based car hire management system.
 
 # Default Login Infomation
 
-username: admin
+username: admin <br>
 password: admin123
 
 
