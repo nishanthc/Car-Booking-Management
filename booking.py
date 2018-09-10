@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, flash, url_for, request
 from flask_login import current_user, login_user, logout_user
 from forms import BookingForm
-from init import app
+from app import app
 from models import db, User, Booking
 from user import *
 
@@ -42,10 +42,11 @@ def new_booking():
                     car_id=form.car_id.data,
                     start_time=form.start_date_time.data,
                     end_time=form.end_date_time.data)
+        booking.is_car_avaiable()
         db.session.add(booking)
         db.session.commit()
         flash('Thanks for making a booking')
-        return redirect(url_for('booking.bookings'))
+        return redirect(url_for('booking_blueprint.bookings'))
     return render_template('booking/new.html', title='New Booking',form=form)
 
 
