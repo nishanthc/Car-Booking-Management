@@ -60,21 +60,23 @@ class Booking(db.Model):
     def is_car_avaiable(self):
         within_another_bookings_timeslot = db.session.query(Booking).filter(Booking.car_id == self.car_id,
             Booking.start_time <= self.start_time,Booking.end_time >= self.end_time).count()
-        self.start_time
+
+        user_same_time_slot = db.session.query(Booking).filter(Booking.user_id == self.user_id,
+                                                                            Booking.start_time <= self.start_time,
+                                                                            Booking.end_time >= self.end_time).count()
+
 
         booking_within_this_range = db.session.query(Booking).filter(Booking.car_id == self.car_id,
             Booking.start_time >= self.start_time,Booking.end_time <= self.end_time).count()
-        self.start_time
 
-        starts_two_hours_before_end = db.session.query(Booking).filter(Booking.car_id == self.car_id,
+
+        starts_two_hours_before_end_start = db.session.query(Booking).filter(Booking.car_id == self.car_id,
              Booking.end_time >= self.start_time - timedelta(hours=2),Booking.end_time <= self.start_time).count()
-        self.start_time
-        print(Booking.end_time)
-        print(self.start_time - timedelta(hours=2))
 
+        print("In Range:", user_same_time_slot)
         print("In Range:",within_another_bookings_timeslot)
         print("Out of Range:",booking_within_this_range )
-        print("starts two hours before an end:", starts_two_hours_before_end)
+        print("starts two hours before an end:", starts_two_hours_before_end_start)
 
 
 
