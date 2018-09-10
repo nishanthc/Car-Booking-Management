@@ -5,6 +5,13 @@
     <div class="col-lg-12 text-center">
       <h1 class="mt-5">Booking Dashboard</h1>
       <a href="/bookings/new">Make a booking now !</a>
+
+      {% for message in get_flashed_messages() %}
+          <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+          </div>
+      {% endfor %}
       {% if data["user_has_booking"] == True %}
           <table class="table">
           <thead>
